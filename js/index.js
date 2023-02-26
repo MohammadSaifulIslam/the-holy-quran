@@ -27,10 +27,17 @@
 
 const loadAyah = async (surahNumber) => {
     try {
+        // for arabic ayats
         const url = `https://api.alquran.cloud/v1//surah/${surahNumber}`;
         const res = await fetch(url);
         const data = await res.json();
-        showAyah(data.data.ayahs)
+
+
+        // for bangla ayats
+        const url2 = `https://api.alquran.cloud/v1/surah/${surahNumber}/bn.bengali`;
+        const res2 = await fetch(url2);
+        const data2 = await res2.json();
+        showAyah(data.data.ayahs ,data2.data.ayahs )
     }
     catch (error) {
         console.log(error);
@@ -40,44 +47,23 @@ const loadAyah = async (surahNumber) => {
 
 
 
-const showAyah = ayahs => {
-    const ayahContainer = document.getElementById('surah-container');
-    ayahContainer.innerText = '';
-    ayahs.forEach(ayah => {
-        // console.log(ayah)
-        const p = document.createElement('p');
-        p.innerText = ayah.text;
-        ayahContainer.appendChild(p)
-    });
+
+const showAyah = (ayahArabic, ayahBangla) => {
+    const surahContainer = document.getElementById('surah-container');
+    surahContainer.textContent = '';
+    for(let i = 0; i < ayahArabic.length; i++){
+        const arabic = ayahArabic[i];
+        const bangla = ayahBangla[i];
+        console.log(arabic,bangla);
+        const div = document.createElement('div');
+        div.innerHTML =`
+        <p>${arabic.text}</p>
+        <p>${bangla.text}</p>
+        `;
+        surahContainer.appendChild(div)
+    }
 }
 
-
-// bangoli Ayah
-const loadSurahBangla = async (surahNumber) => {
-    try {
-        const url = `https://api.alquran.cloud/v1/surah/${surahNumber}/bn.bengali`;
-        const res = await fetch(url);
-        const data = await res.json();
-        showBangaliAyah(data.data.ayahs)
-    }
-    catch (error) {
-        console.log(error);
-    }
-};
-
-const showBangaliAyah = ayahs => {
-    const ayahContainer = document.getElementById('surah-bangla-container');
-    ayahContainer.innerText = '';
-    ayahs.forEach(ayah => {
-        // console.log(ayah)
-        const p = document.createElement('p');
-        p.innerText = ayah.text;
-        ayahContainer.appendChild(p)
-    });
-}
-
-
-// show surah audio
 const displaySurahAudio = surahNumber => {
     const url = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surahNumber}.mp3`;
     // console.log(url)
@@ -99,13 +85,11 @@ const displaySurahAudio = surahNumber => {
 document.getElementById("surah-list").addEventListener('change', (event) => {
     const surahNumber = event.target.value;
     loadAyah(surahNumber);
-    loadSurahBangla(surahNumber)
     displaySurahAudio(surahNumber)
     // showAyah()
 
 });
 
-// loadSurah();
+
 loadAyah('1');
-loadSurahBangla('1');
 displaySurahAudio('1')
