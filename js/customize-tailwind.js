@@ -8,7 +8,6 @@ tailwind.config = {
         fontFamily: {
             tilt:['Tilt Neon', 'cursive'],
         }
-
       }
     }
   }

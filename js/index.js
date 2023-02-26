@@ -84,7 +84,7 @@ const displaySurahAudio = surahNumber => {
     const audioContainer = document.getElementById('audio-container');
     audioContainer.innerHTML = '';
     audioContainer.innerHTML = `
-    <figure>
+    <figure class="z-0">
         <p class="mb-4">Recaited by Mishary bin Rashid Alafasy</p>
         <audio class="sticky bottom-0" controls src="${url}">
             <a href="${url}">
