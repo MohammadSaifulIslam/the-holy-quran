@@ -37,7 +37,7 @@ const loadAyah = async (surahNumber) => {
         const url2 = `https://api.alquran.cloud/v1/surah/${surahNumber}/bn.bengali`;
         const res2 = await fetch(url2);
         const data2 = await res2.json();
-        showAyah(data.data.ayahs ,data2.data.ayahs )
+        showAyah(data.data.ayahs ,data2.data.ayahs, data.data )
     }
     catch (error) {
         console.log(error);
@@ -48,22 +48,39 @@ const loadAyah = async (surahNumber) => {
 
 
 
-const showAyah = (ayahArabic, ayahBangla) => {
+const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
+    console.log(surahDetails)
     const surahContainer = document.getElementById('surah-container');
     surahContainer.textContent = '';
+    const surahDetailsDiv = document.createElement('div');
+    surahDetailsDiv.innerHTML = `
+    <p>Surah Name: ${surahDetails.englishName}</p>
+    <p>Surah Number: ${surahDetails.number}</p>
+    <p>Number of Ayahs: ${surahDetails.numberOfAyahs}</p>
+    <p>Revelation Type: ${surahDetails.revelationType}</p>
+    `;
+    surahDetailsDiv.classList.add("p-4", "font-medium", "rounded", "mx-auto", "text-2xl");
+    surahDetailsDiv.classList.add('md:w-1/2');
+    surahContainer.appendChild(surahDetailsDiv);
+
+    // single ayah show
     for(let i = 0; i < ayahArabic.length; i++){
         const arabic = ayahArabic[i];
         const bangla = ayahBangla[i];
-        console.log(arabic,bangla);
+        // console.log(arabic,bangla);
         const div = document.createElement('div');
         div.innerHTML =`
-        <p>${arabic.text}</p>
-        <p>${bangla.text}</p>
+        <p class="font-mirza text-4xl mb-3">${arabic.text}</p>
+        <p class="font-anek text-2xl">${bangla.text}</p>
         `;
         surahContainer.appendChild(div)
     }
 }
 
+
+
+
+// load and display audio
 const displaySurahAudio = surahNumber => {
     const url = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surahNumber}.mp3`;
     // console.log(url)

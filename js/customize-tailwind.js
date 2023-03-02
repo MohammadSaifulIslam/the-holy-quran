@@ -7,6 +7,8 @@ tailwind.config = {
         },
         fontFamily: {
             tilt:['Tilt Neon', 'cursive'],
+            mirza: ['Mirza', 'cursive'],
+            anek: ['Anek Bangla'],
         }
       }
     }

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  data-theme="night">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Holy Quran</title>
+    <!-- arabic font -->
+    <link href="https://fonts.googleapis.com/css2?family=Mirza:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- bangla font -->
     <link href='https://fonts.googleapis.com/css?family=Anek Bangla' rel='stylesheet'>
     <!-- en font -->
@@ -14,21 +16,17 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://kit.fontawesome.com/c1c457bca8.js" crossorigin="anonymous"></script>
-    <style>
-        #surah-bangla-container{
-            font-family: 'Anek Bangla';
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="font-tilt md:mx-6 relative">
-    <header  class="sticky top-0 z-40">
+    <header  class="sticky top-0 z-40 ">
         <!-- navbar start -->
         <nav>
             <div class="navbar bg-slate-200 md:rounded-3xl my-8 ">
                 <div class="navbar-start">
                     <div class="dropdown">
-                        <label tabindex="0" class="btn btn-ghost btn-circle">
+                        <label tabindex="0" class="btn btn-ghost btn-circle text-qrpurple">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -38,7 +36,13 @@
                         <ul tabindex="0"
                             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><a>Homepage</a></li>
-                            <li><a>Portfolio</a></li>
+                            <li><a>Read by Surah</a></li>
+                            <li><a>Read by Para</a></li>
+                            <li><a>Surah Audio</a></li>
+                            <li><a>Get an Ayah</a></li>
+                            <li><a>Get an Page</a></li>
+                            <li><a>Get an Ruku</a></li>
+                            <li><a>Ayahs of Sajda</a></li>
                             <li><a>About</a></li>
                         </ul>
                     </div>
@@ -47,14 +51,14 @@
                     <a href="#" class="text-qrpurple font-semibold normal-case text-xl">The Holy Quran</a>
                 </div>
                 <div class="navbar-end">
-                    <button class="btn btn-ghost btn-circle">
+                    <button class="btn btn-ghost btn-circle text-qrpurple">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
-                    <button class="btn btn-ghost btn-circle">
+                    <button class="btn btn-ghost btn-circle text-qrpurple">
                         <div class="indicator">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -68,7 +72,7 @@
             </div>
         </nav>
     </header>
-    <main class="text-center mx-3 z-0">
+    <main class="text-center mx-3 z-0 text-white">
         <section>
             <h2 class="text-center ">Assalamu Alaikum</h2>
             <div class="md:w-2/4 mx-auto mb-6">
@@ -428,7 +432,7 @@
             </div>
         </section>
         <section class="relative">
-            <div id="surah-container" class="mb-6">
+            <div id="surah-container" class="mb-6 ">
 
             </div>
             <div id="surah-bangla-container" class="text-3xl text-anek">
