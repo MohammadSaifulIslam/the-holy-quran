@@ -25,7 +25,8 @@
 //     console.log(surahListContainer)
 // }
 
-const loadAyah = async (surahNumber) => {
+const loadAyah = async(surahNumber) => {
+    loader(true)
     try {
         // for arabic ayats
         const url = `https://api.alquran.cloud/v1//surah/${surahNumber}`;
@@ -37,9 +38,8 @@ const loadAyah = async (surahNumber) => {
         const url2 = `https://api.alquran.cloud/v1/surah/${surahNumber}/bn.bengali`;
         const res2 = await fetch(url2);
         const data2 = await res2.json();
-        showAyah(data.data.ayahs ,data2.data.ayahs, data.data )
-    }
-    catch (error) {
+        showAyah(data.data.ayahs, data2.data.ayahs, data.data)
+    } catch (error) {
         console.log(error);
     }
 };
@@ -49,7 +49,8 @@ const loadAyah = async (surahNumber) => {
 
 
 const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
-    console.log(surahDetails)
+    loader(false)
+        // console.log(surahDetails)
     const surahContainer = document.getElementById('surah-container');
     surahContainer.textContent = '';
     const surahDetailsDiv = document.createElement('div');
@@ -59,20 +60,21 @@ const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
     <p>Number of Ayahs: ${surahDetails.numberOfAyahs}</p>
     <p>Revelation Type: ${surahDetails.revelationType}</p>
     `;
-    surahDetailsDiv.classList.add("p-4", "font-medium", "rounded", "mx-auto", "text-2xl");
+    surahDetailsDiv.classList.add("p-4", "font-medium", "rounded", "mx-auto", "text-2xl", "mb-5");
     surahDetailsDiv.classList.add('md:w-1/2');
     surahContainer.appendChild(surahDetailsDiv);
 
     // single ayah show
-    for(let i = 0; i < ayahArabic.length; i++){
+    for (let i = 0; i < ayahArabic.length; i++) {
         const arabic = ayahArabic[i];
         const bangla = ayahBangla[i];
         // console.log(arabic,bangla);
         const div = document.createElement('div');
-        div.innerHTML =`
-        <p class="font-mirza text-4xl mb-3">${arabic.text}</p>
+        div.innerHTML = `
+        <p class="font-mirza text-4xl mb-1">${arabic.text}</p>
         <p class="font-anek text-2xl">${bangla.text}</p>
         `;
+        div.classList.add("mb-5")
         surahContainer.appendChild(div)
     }
 }
@@ -82,10 +84,10 @@ const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
 
 // load and display audio
 const displaySurahAudio = surahNumber => {
+    const audioContainer = document.getElementById('audio-container');
+    audioContainer.textContent = '';
     const url = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surahNumber}.mp3`;
     // console.log(url)
-    const audioContainer = document.getElementById('audio-container');
-    audioContainer.innerHTML = '';
     audioContainer.innerHTML = `
     <figure class="z-0">
         <p class="mb-4">Recaited by Mishary bin Rashid Alafasy</p>
@@ -100,13 +102,43 @@ const displaySurahAudio = surahNumber => {
 
 // get search text and show by search
 document.getElementById("surah-list").addEventListener('change', (event) => {
+    const surahContainer = document.getElementById('surah-container');
+    surahContainer.textContent = '';
+    const audioContainer = document.getElementById('audio-container');
+    audioContainer.textContent = '';
+    loader(true)
+
     const surahNumber = event.target.value;
     loadAyah(surahNumber);
     displaySurahAudio(surahNumber)
-    // showAyah()
+        // showAyah()
 
 });
 
+// cooming soon alart 
+document.getElementById('list-container').addEventListener('click', function(e) {
+    console.log(e.target.innerText)
+    if (e.target.innerText !== 'Homepage') {
+        alert("Cooming soon, In Sa Allah")
+    }
+
+
+});
+
+// loading spinner 
+const loader = (isloading) => {
+    const spinner = document.getElementById('spinner');
+    if (isloading) {
+        spinner.classList.remove('hidden')
+    } else {
+        spinner.classList.add('hidden')
+
+    }
+};
 
 loadAyah('1');
-displaySurahAudio('1')
+displaySurahAudio('1');
+
+// window.onload(setTimeout(() => {
+//     alert(`আসসালামু আলাইকুম। বি: দ্র: এই ওয়েবসাইটের ডাটা Al-Quran cloud খেকে নেওয়া হয়েছে। আর অনুবাদ হিসেবে মাওলানা  মহিউদ্দিন খান  এর বাংলা অনুবাদ যুক্ত করা হয়েছে। ওয়েবসাইটের কোনো ভুল বা অসঙ্গতি থাকলে জানানোর অনুরোধ রইলো।`)
+// }, 3000));
