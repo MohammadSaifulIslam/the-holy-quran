@@ -25,7 +25,7 @@
 //     console.log(surahListContainer)
 // }
 
-const loadAyah = async(surahNumber) => {
+const loadAyah = async (surahNumber) => {
     loader(true)
     try {
         // for arabic ayats
@@ -44,13 +44,18 @@ const loadAyah = async(surahNumber) => {
     }
 };
 
-
-
+// convert arabic number
+const convertToArabicNumbers = (num) => {
+    const arabicNumbers = "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669";
+    return new String(num).replace(/[0123456789]/g, (d) => {
+        return arabicNumbers[d];
+    });
+};
 
 
 const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
     loader(false)
-        // console.log(surahDetails)
+    // console.log(surahDetails)
     const surahContainer = document.getElementById('surah-container');
     surahContainer.textContent = '';
     const surahDetailsDiv = document.createElement('div');
@@ -64,6 +69,12 @@ const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
     surahDetailsDiv.classList.add('md:w-1/2');
     surahContainer.appendChild(surahDetailsDiv);
 
+
+    // count for ahay number 
+    let countAyahArabic = 0;
+
+    // const arabicNumber = 
+    let countAyahBangla = 0;
     // single ayah show
     for (let i = 0; i < ayahArabic.length; i++) {
         const arabic = ayahArabic[i];
@@ -71,8 +82,8 @@ const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
         // console.log(arabic,bangla);
         const div = document.createElement('div');
         div.innerHTML = `
-        <p class="font-mirza text-4xl mb-1">${arabic.text}</p>
-        <p class="font-anek text-2xl">${bangla.text}</p>
+        <p class="font-mirza text-4xl mb-3">${arabic.text} (${convertToArabicNumbers(++countAyahArabic)})</p>
+        <p class="font-anek text-2xl">${bangla.text} ${++countAyahBangla}</p>
         `;
         div.classList.add("mb-5")
         surahContainer.appendChild(div)
@@ -111,12 +122,12 @@ document.getElementById("surah-list").addEventListener('change', (event) => {
     const surahNumber = event.target.value;
     loadAyah(surahNumber);
     displaySurahAudio(surahNumber)
-        // showAyah()
+    // showAyah()
 
 });
 
 // cooming soon alart 
-document.getElementById('list-container').addEventListener('click', function(e) {
+document.getElementById('list-container').addEventListener('click', function (e) {
     console.log(e.target.innerText)
     if (e.target.innerText !== 'Homepage') {
         alert("Cooming soon, In Sa Allah")
@@ -141,4 +152,4 @@ displaySurahAudio('1');
 
 window.onload(setTimeout(() => {
     alert(`আসসালামু আলাইকুম। বি: দ্র: এই ওয়েবসাইটের ডাটা Al-Quran cloud খেকে নেওয়া হয়েছে। আর অনুবাদ হিসেবে মাওলানা  মহিউদ্দিন খান  এর বাংলা অনুবাদ যুক্ত করা হয়েছে। ওয়েবসাইটের কোনো ভুল বা অসঙ্গতি থাকলে জানানোর অনুরোধ রইলো।`)
-}, 3000));
+}, 5000));
