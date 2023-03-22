@@ -51,7 +51,30 @@ const convertToArabicNumbers = (num) => {
         return arabicNumbers[d];
     });
 };
-
+// convert bangla number 
+let finalEnglishToBanglaNumber = {
+    0: "০",
+    1: "১",
+    2: "২",
+    3: "৩",
+    4: "৪",
+    5: "৫",
+    6: "৬",
+    7: "৭",
+    8: "৮",
+    9: "৯",
+  };
+  
+  String.prototype.getDigitBanglaFromEnglish = function () {
+    let retStr = this;
+    for (let x in finalEnglishToBanglaNumber) {
+       retStr = retStr.replace(
+          new RegExp(x, "g"),
+          finalEnglishToBanglaNumber[x]
+       );
+    }
+    return retStr;
+  };
 
 const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
     loader(false)
@@ -80,10 +103,11 @@ const showAyah = (ayahArabic, ayahBangla, surahDetails) => {
         const arabic = ayahArabic[i];
         const bangla = ayahBangla[i];
         // console.log(arabic,bangla);
+        const convertBangla = (++countAyahBangla + '').getDigitBanglaFromEnglish()
         const div = document.createElement('div');
         div.innerHTML = `
         <p class="font-mirza text-4xl mb-3">${arabic.text} (${convertToArabicNumbers(++countAyahArabic)})</p>
-        <p class="font-anek text-2xl">${bangla.text} ${++countAyahBangla}</p>
+        <p class="font-anek text-2xl">${bangla.text} (${convertBangla})</p>
         `;
         div.classList.add("mb-5")
         surahContainer.appendChild(div)
